@@ -1,0 +1,4 @@
+drop table viz;
+.mode csv
+.import viz.csv viz
+.quit

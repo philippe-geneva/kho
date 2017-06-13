@@ -1,0 +1,22 @@
+body {
+  font-family:		Arial;
+  font-size:		12px;
+  background-color:	white;
+}
+#tableau-public-connector img {
+  max-width:		100%;
+  max-height:		100%;
+}
+
+span.htmlcode {
+  font-size:		12px;
+  font-family:		Courier New;
+}
+
+span.header {
+  font-weight:		bold;
+}
+
+table h3 {
+  font-weight:		bold;
+}

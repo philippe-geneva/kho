@@ -1,0 +1,9 @@
+.fullscreen {
+  background:	rgb(0,0,0) 
+  		url("http://www.who.int/sysmedia/media/style/img/who_sprite.gif") 
+		no-repeat 
+		scroll 0 -426px;
+  float: 	left;
+  font-size: 	14px;
+  padding-left:	10px;
+}

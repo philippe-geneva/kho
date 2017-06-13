@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?> 
+<project name="WebitTableauWrapper" basedir="." default="dist">
+
+  <property name="dist.dir" 
+            value="dist"/>
+
+  <property name="webapp_name" 
+            value="tableau-public"/>
+
+  <target name="clean" 
+          description="Deletes all compiled class files">
+    <delete dir="${dist.dir}"/>
+    <echo>
+------------------------------------------------------------
+The ${dist.dir} has been deleted.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="dist" 
+          depends="loadDb"
+          description="Create the application war file">
+    <delete dir="${dist.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <war destfile="${dist.dir}/${webapp_name}.war" 
+         webxml="${webapp_name}/WEB-INF/web.xml">
+      <fileset dir="${webapp_name}"/>
+    </war>
+    <echo>
+------------------------------------------------------------
+The WAR file ${dist.dir}/${webapp_name}.war is ready.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="loadDb"
+	  description="Reload the database of views from source">
+    <exec executable="sqlite3"
+	  failonerror="true"
+	  input="import.sqlite3">
+      <arg value="${webapp_name}/WEB-INF/tpc.db"/>
+    </exec>
+    <echo>
+------------------------------------------------------------
+Database regenerated.
+------------------------------------------------------------
+    </echo>
+  </target>
+</project>
+

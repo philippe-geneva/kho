@@ -1,0 +1,6 @@
+id,type,title,name,height,width
+901,tp,HIV,KEN_NHO_SO1_HIV/Dashboard,700,980
+902,tp,TB,KEN_NHO_SO1_TB/Dashboard,700,980
+903,tp,Malaria,KEN_NHO_SO1_Malaria/Dashboard,700,980
+904,tp,Pneumonia,KEN_NHO_SO1_pneumonia/Dashboard,700,980
+905,tp,Immunization,KEN_NHO_SO1_immunization/Dashboard,700,980
