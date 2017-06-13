@@ -1,0 +1,10 @@
+drop table if exists Cabinet;
+drop table if exists CabinetSection;
+drop table if exists CabinetSubSection;
+drop table if exists CabinetRelatedLinks;
+.mode csv
+.import Cabinet.csv Cabinet
+.import CabinetSection.csv CabinetSection
+.import CabinetSubSection.csv CabinetSubSection
+.import CabinetRelatedLinks.csv CabinetRelatedLinks
+.quit

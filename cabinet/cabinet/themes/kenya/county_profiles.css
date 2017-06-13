@@ -1,0 +1,20 @@
+body 
+{
+
+}
+
+#sl_county
+{
+  width:100%;
+  text-align: center;
+}
+
+#sl_county select 
+{
+  width:40%
+}
+
+#profile
+{
+  text-align:center;
+}

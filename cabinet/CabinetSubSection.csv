@@ -1,0 +1,10 @@
+CabinetID,CabinetSectionID,ID,colour,TitleEN,CaptionEN,height,URL,SidenoteTitleEN,SidenoteEN
+21,1,210101,,Strategic objective 1:<br/>Accelerate reduction of the burden of communicable disease,,1000,../data/node.kenya-nho.so-1,,
+21,1,210102,,Strategic objective 2:<br/>Prevention and control of noncommunicable disease,,1000,../data/node.kenya-nho.so-2,,
+21,1,210103,,Strategic objective 3:<br/>Reduce the burden of violence and injuries,,1000,../data/node.kenya-nho.so-3,,
+21,2,210201,,Strategic objective 4:<br/>Improve person-centred essential health services,,1000,../data/node.kenya-nho.so-4,,
+21,2,210202,,Strategic objective 5:<br/>Minimize exposure to health risk factors,,1000,../data/node.kenya-nho.so-5,,
+21,2,210203,,Strategic objective 6:<br/>Strengthen collaboration with health-related sectors,,1000,../data/node.kenya-nho.so-6,,
+21,3,210401,,Health facility density,"Overall, there are an adequate number of health facilities (2.5 per 10,000 population) but the distribution across (and within) counties is unequal. ",750,themes/kenya/content/hss_health_facilities.jpg,,
+21,3,210402,,Health worker density,"The number of health workers is still low (9 per 10,000 population) and there are very large within-county differences, with the top quintile of counties having four times more health workers than the bottom quintile of counties.",700,themes/kenya/content/hss_health_workers.jpg,,
+21,3,210403,,Access to health services,"More people are using the services with now an average of 2.2 visits per person to an outpatient clinic per year, and 6 hospital admissions per 100 population per year. There are still however very large differences within Kenya. In some counties, the average person makes 4.5 visits in a year to the outpatient clinic, in other counties it is just over 1 visit per person in a year.",500,themes/kenya/content/hss_child_malnutrition.jpg,,

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1"?> 
+<project name="WebitTableauWrapper" basedir="." default="dist">
+
+  <property name="dist.dir" 
+            value="dist"/>
+
+  <property name="docs.dir" 
+            value="docs"/>
+
+  <property name="webapp_name" 
+            value="cabinet"/>
+
+  <property name="deploy_host"
+            value="hqsudevlin.who.int"/>
+
+  <property name="user_name"
+            value="ghouser"/>
+
+  <property name="deploy_path"
+            value="~/htdocs/jakarta-tomcat/webapps"/>
+
+  <target name="clean" 
+          description="Deletes all compiled class files">
+    <delete dir="${dist.dir}"/>
+    <delete file="${webapp_name}/WEB-INF/db.db"/>
+    <echo>
+------------------------------------------------------------
+The ${dist.dir} has been deleted.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="dist" 
+          depends="loadDb"
+          description="Create the application war file">
+    <delete dir="${dist.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <war destfile="${dist.dir}/${webapp_name}.war" 
+         webxml="${webapp_name}/WEB-INF/web.xml">
+      <fileset dir="${webapp_name}"/>
+    </war>
+    <echo>
+------------------------------------------------------------
+The WAR file ${dist.dir}/${webapp_name}.war is ready.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="loadDb"
+	  description="Reload the database of views from source">
+    <exec executable="sqlite3"
+	  failonerror="true"
+	  input="import.sqlite3">
+      <arg value="${webapp_name}/WEB-INF/db.db"/>
+    </exec>
+    <echo>
+------------------------------------------------------------
+Database regenerated.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="updateDb"
+	  depends="loadDb"
+	  description="Update the current database on the deployment host">
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp_name}/WEB-INF/db.db"/>
+      <arg value="${user_name}@${deploy_host}:${deploy_path}/${webapp_name}/WEB-INF/db.db"/>
+    </exec>
+    <echo>
+------------------------------------------------------------
+Database updated on ${deploy_host}.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="deploy"
+          depends="dist"
+          description="Deploy ${webapp_name} to ${deploy_host}">
+    <exec executable="scp" failonerror="true">
+      <arg value="${dist.dir}/${webapp_name}.war"/>
+      <arg value="${user_name}@${deploy_host}:${deploy_path}/${webapp_name}.war"/>
+    </exec>
+    <echo>
+------------------------------------------------------------
+${webapp_name} deployed to ${deploy_host}.
+------------------------------------------------------------
+    </echo>
+  </target>
+</project>
+

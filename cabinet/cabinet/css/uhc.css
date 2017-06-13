@@ -1,0 +1,135 @@
+
+/*
+ * The yellow banner at the top of the UHC portal page
+ */
+
+div.uhc_main_banner 
+{
+  display:		table;
+  height:		100%;
+  background-color:	#ffc20e;
+  width:		100%;
+  min-height:		96px;
+  color:		black;
+  text-align:		center;
+  vertical-align:	middle;
+  padding-top:		20px;
+  padding-bottom:	20px;
+}
+
+/*
+ * Teaser secctions for financing and equity image/links
+ */
+
+div.uhc_teaser_section
+{
+  text-align:		center;
+  font-size:		16px;
+  line-height:		32px;
+  font-weight:		bold;
+  width:		50%;
+  /*
+  width:		49.75%;
+  float:		left;
+  */
+  text-decoration:	none;
+  border:		solid #008dc9 1px;
+  display:		table-cell;
+}
+
+div.uhc_teaser_section img
+{
+/*
+  max-height:		100%;
+  max-width:		100%;
+*/
+  max-width:            510px;
+  width:                auto;  
+  height:               auto;
+}
+
+div.uhc_teaser_heading 
+{
+  background-color:	#008dc9;
+  width:		100%;
+  color:		white;
+  font-size:		22px;
+  line-height:		22px;
+  padding-top:		20px;
+  padding-bottom:	20px;
+}
+
+/*
+ * Spacer div to separate the sections in the UHC portal page
+ */
+
+div.uhc_spacer
+{
+  width:		100%;
+  height:		28px;
+}
+
+/*
+ * These are used to style the list of additional links
+ */
+
+div.uhc_links 
+{
+  background-color:	white;
+  font-family: 		Helvetica,Arial,sans-serif;
+  font-size:		18px;
+  text-decoration:	none;
+  color:		#008dc9;
+  margin:		auto;
+  width:		75%;
+  padding:		10px;
+}
+
+div.uhc_links.short
+{
+  width:                30%;
+  margin:               0px;
+  float:                right;
+}
+
+div.uhc_links a 
+{
+  text-decoration:	none;
+  color:		black;
+}
+
+div.uhc_links ul
+{
+/*
+  list-style-type:      square;
+  list-style-image:     none;
+  list-style-position:  outside;
+  color:                #196AAA;
+*/
+  list-style:           none;
+  line-height:          20px;
+  font-size:            13px;
+  margin-left:          10px;
+}
+
+div.uhc_links li
+{
+/*
+  padding-left:         1em;
+*/
+  padding-bottom:       10px;
+  text-indent:          -1em;
+}
+
+div.uhc_links li::before
+{
+ 
+  content:              "■ ";
+  color:		#008dc9;
+}
+
+
+div.uhc_links a:hover
+{
+  color:		#008dc9;
+}

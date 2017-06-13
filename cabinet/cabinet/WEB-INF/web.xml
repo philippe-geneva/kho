@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+         xmlns="http://java.sun.com/xml/ns/j2ee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                             http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <welcome-file-list>
+    <welcome-file>cabinet.jsp</welcome-file>
+  </welcome-file-list>
+
+  <security-role>
+    <role-name>xmartPreview</role-name>
+  </security-role>
+  <security-constraint>
+    <web-resource-collection>
+        <web-resource-name> </web-resource-name>
+        <url-pattern>/kenya.jsp</url-pattern>
+        <url-pattern>/themes/kenya/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>xmartPreview</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <login-config>
+      <auth-method>BASIC</auth-method>
+      <realm-name>GHO Preview</realm-name>
+  </login-config>
+
+
+</web-app>

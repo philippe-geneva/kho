@@ -1,0 +1,201 @@
+			<!-- begin: header -->
+			<div id="header">
+					<!--including masthead file: /mason/mheader_en.mc -->
+					<!--googleoff: index-->  
+
+ 
+
+<!-- begin: skip to content -->
+<div id="skip"><a href="#content">Skip to main content</a></div>
+
+<!-- CHANGED  -->
+<!-- div id="campaignHighlight">
+<a href="http://www.who.int/campaigns/hepatitis-day/2016/en/" id ="hepatitis-day-2016"> <span>Tobacco Day</span>
+<img src="http://www.who.int/campaigns/hepatitis-day/2016/masthead-en.jpg" alt="Campaign week"></a>
+</div -->
+
+<!-- script> 
+$( document ).ready(function() {
+	function getRandomNumber(min, max){
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	var i1 = "http://www.who.int/campaigns/world-blood-donor-day/2016/masthead-girl-en.jpg";
+	var i2 = "http://www.who.int/campaigns/world-blood-donor-day/2016/masthead-boy-en.jpg";	          
+	var i3 = "http://www.who.int/campaigns/world-blood-donor-day/2016/masthead-woman-en.jpg";
+	var texts = [i1, i2, i3];
+	var cUrl = "http://www.who.int/campaigns/world-blood-donor-day/2016/en/";
+	$("#campaignHighlight").append( '<a href="' + cUrl +'" id ="blood-day-2016"> <span>Campaign</span><img src="'+ texts[getRandomNumber(0, texts.length-1)] +'" alt="Campaign"></a>');
+});	
+</script -->
+
+  <div id="campaignHighlight"> 
+  </div>
+
+
+<!-- begin: branding -->
+  <div id="branding">
+	  <a linkindex="0" href="<%=http_base%>/en/"
+    title="WHO | World Health Organization">
+    </a>
+  </div>
+  <!-- end: branding -->
+
+  <!-- begin: access -->
+  <div id="access">
+    <h3>Access</h3>
+    <ul>
+      <li>
+        <a linkindex="1" accesskey="0" title="Home"
+        href="/en/">Home Alt+0</a>
+      </li>
+      <li>
+        <a linkindex="2" accesskey="1" title="Navigation"
+        href="#navigation">Navigation Alt+1</a>
+      </li>
+      <li>
+        <a linkindex="3" accesskey="2" title="Content"
+        href="#main">Content Alt+2</a>
+      </li>
+    </ul>
+  </div>
+  <!-- end: access -->
+  
+  <!-- begin: search -->
+  <!--
+  <span id="mobile-search-icon" class="mobile-search-icon"><i class="search-icon-image"></i></span>
+ <div id="search"> 
+  <h3>Search</h3>
+  <form id="search_form" action="http://search.who.int/search">
+        <span id="search_label">
+            <label for="q"> Search the
+            <acronym title="World Health Organization">WHO</acronym>.int site</label>
+        </span>
+
+        <span id="search_input">
+          <input name="q" id="q" title="Search the WHO.int site" type="text" />
+        </span>
+        <label for="search_submit" class="invisible"> Submit </label>
+        <input type="hidden" name="ie" value="utf8" />
+        <input type="hidden" name="site" value="who" />
+        <input type="hidden" name="client" value="_en_r" />
+        <input type="hidden" name="proxystylesheet" value="_en_r" /> 
+        <input type="hidden" name="output" value="xml_no_dtd" />
+        <input type="hidden" name="oe" value="utf8" />
+        <input type="hidden" name="getfields" value="doctype"/>
+        <input id="search_submit" value="Search" title="Search" type="submit" />
+        <a href="http://search.who.int/search?ie=utf8&site=who&lr=lang_en&client=_en_r&proxystylesheet=_en_r&output=xml_no_dtd&oe=UTF-8&access=p&entqr=3&ud=1&proxycustom=%3CADVANCED/%3E" title="Advanced Search" id="search_advanced">
+            Advanced search
+        </a>
+    </form>
+</div>
+  -->
+ <!-- end: search -->
+  
+  
+  <!-- begin: navigation -->
+  <span id="mobile-nav-icon" class="mobile-nav-icon"><i class="nav-icon-image"></i></span>
+  <div id="navigation" style="width:100%">
+    <h3>Navigation</h3>
+    
+    <ul>
+	    <!-- alternative to top navigation bar -->
+      <li id="navigation_home"  class="last"  >
+      <a linkindex="5" href="#" title="Home">
+          <span>Home</span>
+        </a>
+      </li>
+ <!--
+      <li id="navigation_home"  class="selected last"  >
+      <a linkindex="5" href="/en/" title="Home">
+          <span>Home</span>
+        </a>
+      </li>
+      <li id="navigation_health-topics"   >
+	      <a href="<%=http_base%>/topics/en/" title="Health topics">
+          <span>Health topics</span>
+        </a>
+      </li>
+      <li id="navigation_data-and-statistics"  >
+	      <a href="<%=http_base%>/entity/gho/en/" title="Global Health Observatory (GHO) data">
+          <span>Data</span>
+        </a>
+      </li>
+      <li id="navigation_media-centre"  >
+	      <a href="<%=http_base%>/entity/mediacentre/en/" title="Media centre">
+          <span>Media centre</span>
+        </a>
+      </li>
+      <li id="navigation_publications"  >
+	      <a href="<%=http_base%>/publications/en/" title="Publications">
+          <span>Publications</span>
+        </a>
+      </li>
+
+	  
+      <li id="navigation_countries"  >
+	      <a linkindex="6" href="<%=http_base%>/countries/en/"
+        title="Countries">
+          <span>Countries</span>
+        </a>
+      </li>
+      <li id="navigation_programmes-and-projects"  >
+	      <a linkindex="7" href="<%=http_base%>/entity/en/"
+        title="Programmes and projects">
+          <span>Programmes</span>
+        </a>
+      </li>
+	  <li id="navigation_governance"  >
+		  <a href="<%=http_base%>/governance/en/" title="Governance">
+          <span>Governance</span>
+        </a>
+      </li>
+      <li id="navigation_about-who" class="last  " >
+	      <a href="<%=http_base%>/about/en/" title="About WHO">
+          <span>About <acronym title="World Health Organization">WHO</acronym></span>
+        </a>
+      </li>
+ -->
+    </ul>
+  </div>
+  <!-- end: navigation -->
+
+  <div class="clear"></div>
+
+  <!-- begin: language -->
+  <!--
+  <div id="language">
+    <h3>Language</h3>
+    <div class="language_container">
+        <div id="owl-language-carousel" dir="ltr" class="owl-carousel owl-theme">
+             <script type="text/javascript">
+          var addthis_config = addthis_config||{};
+          addthis_config.lang = 'en';
+ </script>
+<div id="language_ar" class="item disabled" ><a href="#" title="Arabic"><span  dir="rtl" >عربي</span> </a> </div>
+<div id="language_zh" class="item disabled" ><a href="#" title="Chinese"><span >中文</span> </a> </div>
+<div id="language_en" class="item  selected" ><a href="#" title="English"><span >English</span> </a> </div>
+<div id="language_fr" class="item disabled" ><a href="#" title="French"><span >Français</span> </a> </div>
+<div id="language_ru" class="item disabled " ><a href="#" title="Russian"><span >Русский</span> </a> </div>
+<div id="language_es" class="item disabled last" ><a href="#" title="Spanish"><span >Español</span> </a> </div>
+
+
+        </div>
+    </div>
+  </div>
+  -->
+  <!-- end: language -->
+
+  <!-- begin: social links -->
+  <div class="header-social-links">
+     <div class="addthis_inline_follow_toolbox"></div>
+ </div>
+  <!-- end: social links -->
+   <!--googleon: index-->
+
+
+ 
+
+ 
+			</div>
+			<!-- end: header -->

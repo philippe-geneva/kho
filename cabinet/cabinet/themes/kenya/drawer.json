@@ -1,0 +1,95 @@
+var drawer = 
+{
+  "so_1_1": // HIV
+  {
+    "map": "img/so-1-1.jpg",
+    "viz": "http://localhost:8080/tableau-public/tpc-embedded.jsp?id=901",
+    "data":"img/so-1-1-data.jpg"
+  },
+  "so_1_2": //tuberculosis
+  {
+    "map":"img/so-1-2.jpg",
+    "viz": "http://localhost:8080/tableau-public/tpc-embedded.jsp?id=902",
+    "data":""
+  },
+  "so_1_3":  //malaria
+  {
+    "map":"img/so-1-3.jpg",
+    "viz": "http://localhost:8080/tableau-public/tpc-embedded.jsp?id=903",
+    "data":""
+  },
+  "so_1_4":  // pneumonia
+  {
+    "map":"",
+    "viz": "http://localhost:8080/tableau-public/tpc-embedded.jsp?id=904",
+    "data":""
+  },
+  "so_1_5": // child immunization
+  {
+    "map":"img/so-1-5.jpg",
+    "viz":"content/rmnch_immunization.jpg",
+    "viz": "http://localhost:8080/tableau-public/tpc-embedded.jsp?id=905",
+    "data":"img/so-1-5-data.jpg"
+  },
+  "so_2_1": // overweight and obesity
+  {
+    "map":"img/so-2-1.jpg",
+    "viz":"content/ncds_overweight_obesity.jpg",
+    "data":"img/so-2-1-data.jpg"
+  },
+  "so_2_2":  // Raised blood pressure
+  {
+    "map":"",
+    "viz":"content/ncds_blood_pressure.jpg",
+    "data":""
+  },
+  "so_3_1":  // road traffic
+  {
+    "map":"",
+    "viz":"img/so-3-1-viz.jpg",
+    "data":""
+  },
+  "so_4_1":  // antenatal and delivery care
+  {
+    "map":"img/so-4-1.jpg",
+    "viz":"content/rmnch_antenatal.jpg",
+    "data":"img/so-4-1-data.jpg"
+  },
+  "so_4_2":  // maternal mortality
+  {
+    "map":"img/so-4-2.jpg",
+    "viz":"content/rmnch_maternal_mort.jpg",
+    "data":""
+  },
+  "so_4_3":  // child mortality
+  {
+    "map":"",
+    "viz":"content/rmnch_child_mort.jpg",
+    "data":""
+  },
+  "so_5_1":  // Tobacco use
+  {
+    "map":"img/so-5-1.jpg",
+    "viz":"content/ncds_tobacco.jpg",
+    "data":"img/so-5-1-data.jpg"
+  },
+  "so_5_2":  // alcohol use
+  {
+    "map":"",
+    "viz":"content/ncds_alcohol.jpg",
+    "data":""
+  },
+  "so_6_1":  // Child malnutrition
+  {
+    "map":"",
+    "viz":"img/so-6-1-viz.jpg",
+    "data":""
+  },
+  "so_6_2":  // access to improved water
+  {
+    "map":"",
+    "viz":"img/so-6-2-viz.jpg",
+    "data":""
+  }
+};
+              
