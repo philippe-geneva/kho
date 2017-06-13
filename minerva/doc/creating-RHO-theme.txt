@@ -1,0 +1,54 @@
+Creating a Regional Health Observatory theme
+
+
+1.	Prepare a transform file to generate the user interface.  The standard UI file in the system is transform.xsl and is available in data/WEB-INF/transforms directory.  You can use it as-is, or you can rename and modify it.  
+
+	For our example, we will make a copy of the UI file and call it searo-ui.xsl.  We'll make a few modifications to it so as to better match the current look-and-feel of the SEARO Regional Health Observatory.  The modifications are made in XSL.
+	
+2.	Prepare the MOTD file for the new instance.  This is the content that is display in the data panel when a user first arrives at the observatory.
+
+	For our example, we will make a new file based on the old SEARO-RHO webapp welcome page.  We will name this file searo.html and place
+	it in the root directory of the web application.
+	
+3.	Prepare a menu file
+
+	For our example, we will take the automatically generated searo version of the main GHO menu and convert it to a SEARO-RHO specific file.  We will transform all the relative links to the Athena service to fully qualified links so that the web application can be run on a SEARO server without requiring that the database services be locally installed.
+
+4.	Create a new theme entry for the regional health observatory in the themes.xml file in data/WEB-INF/themes.xml,  Make references to the three files created above
+
+	For our example, we will use the above files to create a theme called "searo" as follows:
+
+		  <theme name="searo"
+				 transform="WEB-INF/transforms/searo-ui.xsl"
+				 motd="motd.html"
+				 file="WEB-INF/menus/menu-SEARO.xml">
+		   <Display lang="en">Regional Health Observatory</Display>
+		  </theme>
+
+5.	We need to also create a specific country list theme for the regional health observatory so that we can display only the countries relevant to the specific region using the RHO's specific display template.  You must add an appropriate entry for this in the themes.xml file:
+
+	For our example, we will create the theme sear-country as follows:
+	
+		  <theme name="searo-country"
+				 transform="WEB-INF/transforms/searo-ui.xsl"
+				 motd="motd.html"
+				 file="WEB-INF/menus/country.xml">
+		   <Display lang="en">Regional Health Observatory - South East Asia</Display>
+		  </theme>
+	In the user interface transform from step 1 above, update the link to the country menu to reflect the new theme
+	
+	For our example, the link to the SEARO specific country  list is 
+	
+		http://...../gho/data/node.searo-country?showonly=regionSEAR
+		
+6.	Repeat the previous step for the metadata tab as well.  For this you only need to create a new theme entry with a new name and refering to the RHO's user interface template - you can otherwise copy the metadata them definition as is.
+
+	For our example, we create the entry:
+			  <theme name="searo-metadata"
+				 transform="WEB-INF/transforms/searo-ui.xsl"
+				 motd="searo.html"
+				 file="WEB-INF/menus/metadata.xml">
+				<Display lang="en">Regional Health Observatory - South East Asia</Display>
+			  </theme>
+
+	

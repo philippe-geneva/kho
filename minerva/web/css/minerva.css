@@ -1,0 +1,58 @@
+#menuControl {
+  text-align:      left;
+  height:          12px;
+}
+
+#menuControl a {
+  color:    #9F9F9F;
+  font-size:       10px;
+  font-weight:     bold;
+}
+
+#zone_3 {
+  padding:         0px 0px 5px 0px;
+  text-align:      right;
+  height:          12px;
+  color:    #9F9F9F;
+  font-size:       10px;
+  font-weight:     bold;
+}
+
+#zone_3 a {
+  color:    #9F9F9F;
+  font-size:       10px;
+  font-weight:     bold;
+}
+
+#infoBox {
+  width:           auto;
+  padding:         4px 9px 9px;
+}
+
+#infoBoxControl {
+  text-align:      right;
+}
+
+#infoBoxControl a {
+  color:    #9F9F9F;
+  font-size:       10px;
+  font-weight:     bold;
+}
+
+#sidebar {
+  padding:    3px 5px 15px 15px;
+  width:      180px;
+}
+
+#content {
+  padding:    3px 15px 15px 15px;
+  width:      750px;
+}
+
+#view-info {
+  width: auto; 
+}
+
+ul.subnavigation li.selected {
+  font-weight: bold;
+};

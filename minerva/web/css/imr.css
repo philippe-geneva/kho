@@ -1,0 +1,38 @@
+body
+{
+  background-color:         white;
+  color:                    black;
+  font-family:              Helvetiva, Arial, sans-serif;
+}
+
+div.metadata
+{
+  width:                    80%;
+}
+
+div.field
+{
+  font-size:                16px;
+  font-weight:              bold;
+  padding:                  5px;
+}
+
+div.value
+{
+  width:                    100%;
+  font-size:                12px;
+  padding-left:              5%;
+  padding-right:             5%;
+}
+
+a 
+{
+  text-decoration:           none;
+  color:                     #196AAA;
+}
+
+a:hover
+{
+  color:                     #d86422;
+  text-decoration:           none;
+}

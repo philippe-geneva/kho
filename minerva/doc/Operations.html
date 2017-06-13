@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>Minerva Operations Manual</title>
+</head>
+<body>
+<h1>Minerva Operations Manual</h1>
+<p>
+If in doubt, contact Philippe Boucher (boucherp@who.int)
+
+<h2>Maintenance Mode</h2>
+<p>
+The system can be put in maintenance mode by setting the parameter <b>maintenanceMode</b> in 
+the .../WEB-INF/web.xml file to <b>1</b>.  While maintenance mode is enabled, Minerva will 
+display a "system unavailable" message in place of the welcome message, the search bar is 
+removed, and the menu is not donwloaded or shown.  The top level navigation bar is still 
+shown and active as some of those links can point to other systems and locations within
+the WHO website.  Those links that point back to the Minerva client are active but will of
+course still result in the "system unavailable" message.<br />
+<br />
+To disable maintenance mode and return to normal operations, simply set the 
+<b>maintenanceMode</b> parameter to 0.<br />
+<br />
+This function is turned off (set to 0) by default
+</p>
+<h2>Enabling wiki link</h2>
+<p>
+To enable the wiki linkage, set the <b>wikiURL</b> parameter in web.xml to the URL root of
+the dokuwiki that is used for the GHO.  This will both set up the link and display the
+"Notes and discussion" tab on the interface.<br />
+<br />
+This function is not set by default
+</p>
+<h2>Enabling Trac link</h2>
+<p>
+Minerva can be connected to a Trac ticket system so that tickets can be logged and tracked against individual data views.  In web.xml, set the <tt>tracURL</tt> parameter to the location of your trac ticket system (dont put a trailing / character).  For example, the link for the gho at WHO is 
+<blockquote>https://extranet.who.int/trac/GHODATA</blockquote>
+You must also specify the trac username and password to be able to access the JSON web service that provides queries into the ticket DB.  This is done using the parameters <tt>tracUsername</tt> and <tt>tracPassword</tt>.
+<br />
+The Trac ticket tracker MUST have the following custom fields defined:  <b>vid</b> and <b>theme</b>.  Refer to the Trac documentation if you do not know how to do this.  You must also create a component called "DataVIew".
+<br /><br />
+This function is disabled by default as it is not something we wished exposed to the general public.  It should only be made available to the WHO community.
+</body>
+

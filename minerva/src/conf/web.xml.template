@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+  <context-param>
+    <param-name>log4jconfig</param-name>
+    <param-value>WEB-INF/log4j.properties</param-value>
+    <description>
+      This provides the location of the log4j properties file so that
+      logging can be controlled.
+    </description>
+  </context-param>
+
+  <context-param>
+    <param-name>publicURL</param-name>
+    <param-value>http://apps.who.int/gho/data</param-value>
+<!--
+    <param-value>http://hqsudevlin.who.int:8086/data</param-value>
+-->
+    <description>Public URL to access Minerva.  When installed on the WHO prod hosting
+                 environment, the application sits behind a reverse proxy, therefore the
+                 public URL is the address of the proxy, not the application host.
+    </description>
+  </context-param>
+
+<!--
+-->
+<!--
+  <context-param>
+    <param-name>wikiURL</param-name>
+    <param-value>http://10.28.44.161/dokuwiki/doku.php</param-value>
+    <description>When set this URL will be used to provided a wiki/discussion page link
+                 implemented in Dokuwiki for every available view in the system.  The name
+                 space and naming convention used is :gho:views:THEMENAME:VID This option 
+		 must not be enabled on the production system (Nothing technically wrong 
+  	 	 with  it , it's just that we dont want Internet users commenting directly 
+		on WHO web sites
+    </description>
+  </context-param>
+
+
+  <context-param>
+    <param-name>tracURL</param-name>
+    <param-value>https://extranet.who.int/trac/GHODATA</param-value>
+    <description>Link to a Trac ticket system that has been configured with two custom fields,
+                 vid and theme.  When this link is set, the user interface will provide a
+                 URL to a collection of tickets associated with the currently displayed view.
+    </description>
+  </context-param>
+
+  <context-param>
+    <param-name>tracUsername</param-name>
+    <param-value>ghosvn</param-value>
+  </context-param>
+
+
+-->
+
+  <context-param>
+    <param-name>maintenanceMode</param-name>
+    <param-value>0</param-value>
+    <description>When set to 1, the Minerva client shows a "down for maintenance" message
+    </description>
+  </context-param>
+
+  <context-param>
+    <param-name>clientName</param-name>
+    <param-value>Minerva GHO Browser</param-value>
+    <description>The name of the client as you wish it to appear</description>
+  </context-param>
+
+<!--
+
+ -->
+
+  <filter>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>UrlRewriteFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>Theme Servlet</servlet-name>
+    <servlet-class>org.who.minerva.servlet.ThemeServlet</servlet-class>
+    <init-param>
+      <param-name>configFile</param-name>
+      <param-value>themes.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>logFileName</param-name>
+      <param-value>minerva</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Theme Servlet</servlet-name>
+    <url-pattern>/theme/*</url-pattern>
+  </servlet-mapping>
+
+
+<!--
+  This setting prevents certain parts of the application tree to be served
+  up to clients
+-->
+
+  <security-constraint>
+    <display-name>excluded</display-name>
+    <web-resource-collection>
+      <web-resource-name>No Access</web-resource-name>
+      <url-pattern>/common/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint />
+    <user-data-constraint>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  
+  <!-- If the URL gives a directory but not a filename, try
+       index.jsp first and index.html second. If neither is
+       found, the result is server-specific (e.g., a  
+       directory listing or a 404 error).  
+  -->
+  <welcome-file-list>
+    <welcome-file>minerva.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

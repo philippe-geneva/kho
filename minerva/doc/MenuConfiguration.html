@@ -1,0 +1,378 @@
+<html>
+<head>
+<title>Configuring the Minerva menu</title>
+</head>
+<body>
+
+
+<h1>Configuring the Minerva menu</h1>
+
+<h2>Requirements</h2>
+You will need the following tools to manipulate the Minerva client
+<ul>
+<li>xsltproc</li>
+<li>bash shell</li>
+<li>ant</li>
+<li>Java JDK</li>
+<li>Subversion</li>
+</ul>
+
+Note that there are many different version of these tools depending on which operating system you use and your prefered method of working (ie CLI vs GUI) and specific tools you like to use.
+<br /><br />
+In order to run a data client, you will need access to a web application server.  Minerva has only been tested on Tomcat so we suggest you use that.  In order to be able to call Athena web services, an instance of Athena should also be installed on THE SAME webapp server.
+
+
+
+<h2>Building a new version of the client</h2>
+
+Any change to the menu entails building a new version of the client (the menu is the client is the menu :-)
+
+<ol>
+<li>Check out the data project from Subversion</li>
+<li>Edit the file <tt>setup/menu.xml</tt></li>
+<li>If required, add any needed text blurbs to the <tt>setup/blurbs</tt> directory (see the section on Programme Themes)</li>
+<li>Compile the menu by running the command <tt>ant</tt> in the Minerva project root</li>
+<li>Copy the resulting file <tt>dist/data.war</tt> to your application server.
+</ol>
+ 
+<h2>XML format</h2>
+
+The menu file consists of 4 basic XML elements:
+<br /><br />
+<table valign="top">
+<tr valign="top"><td><b><tt>Menu</tt></b></td><td colspan="2">
+This is the root element for the menu file.  
+attributes.
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>searchviews</tt></td><td>
+This parameter is set to <tt>"false"</tt> if  you DO NOT want the built-in search function 
+to include the View Display string for this particular menu.  The default is "true"
+</td>
+<tr><td>&nbsp;</td></td><tt>searchthemes</tt></td><td>
+This is a semicolon separated list of themes can must be search from this theme when Minerva's search function is used.   This attribute is optional, if it is not specified, Minerva will only search within the current theme.
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>menu</tt></td><td>
+This sets the default behaviour for how the menu should be displayed when a data view is
+shown.  It can be set to <tt>"hide"</tt> or <tt>"show"</tt>.  If not specified, the 
+default is <tt>"show"</tt>.  This parameter can be overiden on specific <tt>View</tt> elements
+using the View's own <tt>menu</tt> attribute (see below).
+</td></tr>
+
+<tr><td colspan="3">&nbsp;</td></tr>
+
+<tr valign="top"><td><b><tt>Node</tt></b></td><td colspan="2">
+Nodes represent the entries that will be generated for the left-side navigation
+menu present on the Minerva client.  Nodes can be nested, and each node must have
+a Display element, otherwise it will not be visible or clickable.
+<br />Attributes:
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>Id</tt></td><td>
+This is an identifier number for the node.  The Javascript functions that manipulate
+the menu will use this to identify which Node of the menu it should work with.  The 
+value used for Id must be unique across the XML file for all Node elements.  Note that 
+this is different from a View's Id.  This attribute is mandatory.
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>hide</tt></td>
+<td>Setting <b>hide</b> to "1" will cause the menu node to not appear in the menu structure
+displayed to the user.  The entry will in fact be present and can be accessed directly by
+specifying its node id, but it will otherwise be invisible.
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>redirectto</tt></td>
+<td>
+The <b>redirectto</b> attribute is used to send the user from one node in the menu to another
+node in the same menu - this allows the same set of views and nodes to have multiple entry 
+points within a menu.  Set the <b>redirectto</b> attribute to the nodeid of the target node.
+</td></tr>
+
+<tr><td colspan="3">&nbsp;</td></tr>
+
+<tr valign="top"><td><b><tt>View</tt></b></td><td colspan="2">
+View elements describe the different types of views that are available for a particular
+menu Node.  Nodes may contain zero or more View elements.
+<br />Attributes:
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>Id</tt></td><td>
+The ID for the view. When refering directly to a view using a URL, this is the ID 
+that will be used.  Each View Id must be unique across the entire XML file.  This
+attribute is mandatory.
+<tr><td>&nbsp;</td><td><tt>Type</tt></td><td>
+Specifies if a view is <i>embedded</i>, <i>external</i>, <i>direct</i>, or a <i>button</i>.  <i>Embedded</i>
+views are displayed within the current Minerva browser window.  <i>External</i> 
+views open a new window or tab onto the specified URL but will first show a notice page that ths link will take the user off-site (These are intended for links to non-WHO managed web space). <i>Direct</i> views will simply open a new window or tab and show the content of the URL (these are intended for links back into the WHO managed web space).  <i>button</i> views will show a button next to the view list drop down.  Clicking on the button takes the user to the referenced URL without changing the display of the current Minerva page.  This attribute is mandatory.
+Generally, URLs that point back to Athena will be marked as embedded, everything else
+will be external. Buttons are used for linking to things like instant atlas views or tableau dashboards that are relevent to the particular node.
+<tr><td>&nbsp;</td><td><tt>URL</tt></td><td>
+This is the target URL to display.  This attribute is mandatory.  For Athena URLs, 
+please refer to the Athena documentation.  Unless using a special protocol code, Minerva will 
+interpret a value in this attribute like a regular URL.  Special protocol codes currently supported are <tt>tableaupublic://</tt> and <tt>ghoclient://</tt>, these are described below.
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>hide</tt></td>
+<td>Setting <b>hide</b> to "1" will cause the view to not appear in the dropdown associated 
+with each leaf node of the menu. The entry will in fact still be present and can be accessed 
+directly by specifying its vid, but it will otherwise be invisible.
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>menu</tt></td>
+<td>
+Setting <b>menu</b> to "hide" will cause the navigation menu to be hidden when this specific
+View is displayed.  The user can still show the menu by using the "Show menu" control.
+</td></tr>
+
+<tr><td colspan="3">&nbsp;</td></tr>
+
+<tr valign="top"><td><b><tt>Description</tt></b></td><td colspan="2">
+Contains description texts for the particular view.  How the description is displayed will depend on the View's type.  for the moment it only works for the "button" views where the description text will be shown when the user hovers over the button.  Each Description element MUST contain a Display element to store the actual text.
+</td></tr>
+
+
+<tr><td colspan="3">&nbsp;</td></tr>
+
+<tr valign="top"><td><b><tt>Display</tt></b></td><td colspan="2">
+The Display element provides the display string for the parent Node or View element.
+<br />Attributes:
+</td></tr>
+<tr><td>&nbsp;</td><td><tt>Lang</tt></td><td>
+Specifies the display string's language.  This attribute is mandatory and must be
+set using an ISO 2 character language code, <i>en</i> for English, <i>fr</i> for
+French.
+</td></tr>
+</table>
+
+<h2>Special protocol codes for View URL attributes</h2>
+Minerva understands two special protocol codes for URL attribute values within &lt;View&gt; elements
+<table>
+<tr><td><tt>tableaupublic://</tt></td>
+<td>
+This specifies that the content to embed is served from Tableau public.  In this case, the value to use if the public code for the visualization (usually you can extract this from the reference URL of the visualization or from it's Tableau generated embedding script).  For example, the URL for a tableau public view code <tt>SDGTarget3_1_1nostory/Situation</tt> is <tt>tableaupublic://SDGTarget3_1_1nostory/Situation</tt><br/>
+If you wish to embed a dashboard or visualization that is not the default height of 745 pixels, you can specify the height required as a parameter, eg, the previous link displayed in a 1300 pixel high box:  <tt>SDGTarget3_1_1nostory/Situation?height=1300</tt>
+</td></tr>
+
+<tr><td><tt>ghoclient://</tt></td>
+<td>
+This specifies the use of an embedded dynamic GHO crosstable client - the crosstable is generated directly as part of the minerva page so is able to share a scroll bar, freeze the header at the top of the browser, can slide left and right and can automatically resize with the page.  Parameters for this are the same as when using the <tt>&profile=xtab&format=html</tt> combination, but without specifying a target host, format, and profile parameters.  For example:
+<tt>ghoclient://data/GHO/EQ_SBA?x-sideaxis=COUNTRY;YEAR&x-topaxis=GHO;RESIDENCEAREATYPE&filter=COUNTRY:*;RESIDENCEAREATYPE:*&x-axis=RESIDENCEAREATYPE</tt>
+</td>
+</tr>
+</table>
+
+<h2>Minerva URL Format</h2>
+
+Minerva can be accessed using static and dynamic URL structures.  The static version of the URL is prefered as it is more easily indexed by search engines and is also less prone to mistakes when communicated to users.
+
+<h3>Static URLs</h3>
+Minerva supports a "static" URL format, where the URL path is all that is required to get a specific menu <b>node</b> or <b>view</b> within a given <b>theme</b>.  The purpose of this is to enable search engines to find and index pages using a static site map that is generated when the menu is compiled.  The format of these URLs is
+<br /><br /><tt>
+http://<b>HOST</b>:<b>PORT</b>/<b>PATH</b>/data/view.<b>theme.vid.region</b><br/>
+http://<b>HOST</b>:<b>PORT</b>/<b>PATH</b>/data/node.<b>theme.node.region</b><br/>
+</tt>
+<br />
+Replace <b>theme</b>, <b>vid</b> or <b>node</b>, and <b>region</b> with the same values as would be used for the query string described above.  The values for <b>vid</b>, <b>node</b>, and <b>region</b> are optional.
+<h4>Examples</h4>
+<tt>http://apps.who.int/gho/data/view.main</tt><br />
+<tt>http://apps.who.int/gho/data/view.main.1280</tt><br />
+<tt>http://apps.who.int/gho/data/view.main.1280.emro</tt><br />
+<tt>http://apps.who.int/gho/data/node.main.gisah</tt><br />
+<tt>http://apps.who.int/gho/data/node.main.gisah.52400</tt><br />
+
+
+<h3>Dynamic URLs</h3>
+
+The Minerva URL can include the following query parameters
+ 
+<table>
+
+<tr><td><tt>theme</tt></td>
+<td>
+Specifies a menu theme for the client - Minerva can hold multiple menus which are addressed by specifying the theme parameter.  Note that each theme has its own set of VIDs and node ids.
+</td></tr>
+
+<tr><td><tt>node</tt></td>
+<td>
+This will open the menu to the specified node.  The node can anywhere in the menu and is not limited to leaf nodes.  Node id are in the menu configuration XML file.  if both the node id and the vid are specified in a URL, the node id will be ignored in favour of the vid.
+</td></tr>
+
+<tr><td><tt>vid</tt></td>
+<td>
+This will cause the data client to automatically show the specified view id (View Ids are
+specified in the menu configuration XML file, you can also find them by clicking on "Share this view")
+</td></tr>
+
+<tr><td><tt>showonly</tt></td>
+<td>
+When specified, the entire menu is invisible except for the specified top level menu node.  This is used to activate the Proramme Themes. Nodes are identified by their Node id attribute (NOT the VID).  You can get this from the menu configuration xml file or simply by searching for the node using the search function - the node id will be specified in the returned URLs 
+</td></tr>
+
+<tr><td><tt>region</tt></td>
+<td>
+Keeps alive the old GHOdata region hack - by specifying one of <tt>afro, wpro, searo, emro, amro,</tt> or <tt>euro</tt>, any queries made to Athena will be constrained to the specified region when the query consists of a country list.  Note that this will work ONLY for predefined views and not ad-hoc queries.  In addition, if a text blurb is associated to a menu node, the region specific text blurb will be presented instead of the generic (global one) (See the section on Programme Themes)
+</td></tr>
+
+<tr><td><tt>xml</tt></td>
+<td>
+When this parameter is set to  <b>1</b> Minerva will show the underlying XML that generates the requested page rather the the result of the theme's UI transformation against that XML.  This mode is mostly useful for debugging, but would also allow an external developer or service to apply their own transformation to the interface specification XML.<br/>
+When this parameter is set to <b>2</b> and a <b>node</b> is requested (rather than a <b>view</b>,Minerva will output the full underlying menu XML structure for that node - it will also follow redirects.  This function is used to facilitate forcing the regeneration of pages in the athena content cache.
+</td></tr>
+
+<tr><td><tt>embed</tt></td>
+<td>
+This parameter only has an effect when a View ID (<tt>vid</tt>) has been specified.  It can be set to one of <b>1</b>, <b>true</b>, or <b>yes</b>.  When activated, Minerva will return a redirect to the content URL of the specified view, rather than the XML needed to generate the user interface around the view.  This allows views to be embedded in other systems simply by referencing their Minerva URL.
+</td></tr>
+
+<tr><td><tt>search</tt></td>
+<td>
+Search the current menu structure for the specified set of tokens.  This will cause the UI to generate a page of search results.  The search mechanism will go through the combined Node and Vide Display strings in the current language.
+</td></tr>
+
+<tr><td><tt>st</tt></td>
+<td>
+This option specifies a list of search themes, separated by a semicolon.  When specified, the menu system will also search in the specified themes, in addition to the current theme, when a query has been provided via the <tt>search</tt> parameter.  This parameter will have no effect on its own.  You must use the theme labels as they are defined in the <tt>themes.xml</tt> file.
+</td></tr>
+
+<tr><td><tt>menu</tt></td>
+<td>
+This option allows a user to force the menu to be hidden on initial display of the requested page by specifying the parameter <tt>menu=hide</tt>. In this mode, the menu can still be revealed by clicking on the "Show menu" link.  The user can also force the menu to show by specifying the parameter <tt>menu=show</tt>.
+</td>
+</tr>
+
+<tr><td><tt>x-XXX</tt><br/><tt>X-XXX</tt><br/></td>
+<td>
+Passthrough Parameters<br />
+Minerva allows you to pass parameters dynamically to URLs specified in the menu file.  By prefixing a parameter with <tt>x-</tt> or <tt>X-</tt> the parameter will be ignored by Minerva itself and instead processed by whatever is the target of the URL specified for the current node or view that you are accessing.  For example, if you wish to pass the parameter <tt>cache=refresh</tt> to a view pointing to a GHO Restful API URL, add the following at the end of the Minerva link in the brosers's address bar:  x-cache=refresh, for example:  http://apps.who.int/gho/data/node.main.3?x-cache=refresh
+</td>
+</tr>
+</td></tr>
+
+
+</table>
+
+<h4>Examples</h4>
+<table>
+<tr><td width="40%">http://hqsudevlin.who.int:8086/data/?node=2</td>
+<td>This opens to a submenu</td></tr>
+<tr><td>http://hqsudevlin.who.int:8086/data/?node=7</td>
+<td>Open the menu to a data view. Since this is a menu node id and not a VID, the first available view for the entry is displayed by default.  If this is not what you want, use the vid version instead.</td></tr>
+<tr><td>http://apps.who.int/data/?vid=1281D</td>
+<td>Opens the client directly to a specific view</td></tr>
+<tr><td>http://hqsudevlin.who.int:8086/data/?showonly=1</td>
+<td>Only show the specified top level menu node</td></tr>
+<tr><td>http://hqsudevlin.who.int:8086/data/?region=euro</td>
+<td>Only show data from the EURO region when retreiving country level data from Athena</td></tr>
+<tr><td>http://apps.who.int/gho/data/view.main.680?embed=1</td>
+<td>Opens the content of the view in an embeddable form</td></tr>
+<tr><td>http://apps.who.int/gho/data/node.main?xml=1</td>
+<td>Shows the underlying XML that is used to generate this specific page of the user interface</td><tr>
+<tr><td>http://apps.who.int/gho/data/node.main.3?x-cache=refresh</td>
+<td>Pass the parameter cache=refresh to the URL underlying this node</td></tr>
+<tr><td colspan="2"><br />Note that parameters can be combined together<br /><br /></td></tr>
+<tr><td>http://hqsudevlin.who.int:8086/data/?region=euro&showonly=292</td>
+<td>Show the euro specific data and blurb text for GISAH</td></tr>
+<tr><td>http://hqsudevlin.who.int:8086/data/?region=euro&showonly=1&vid=1280X</td>
+<td>Show only the World Health Statistics menu with Euro region data and go straight to the life expectancy view</td></tr>
+</table>
+
+<h2>configuring the web application file, web.xml</h2>
+There are 3 parameters of note in the configuration file, but you will most likely not need to edit them:
+<table>
+<tr><td><tt>logFileName</tt></td>
+<td>
+The name of the Minerva client request log file.  This is preset to data.log and will be
+generated in the <TOMCAT>/logs/ directory.  The file is truncated whenever the webapp is
+restarted.
+</td></tr>
+
+<tr><td><tt>configFile</tt></td>
+<td>
+The name of the configuration file that contains the theme definitions.  This defaults to <b>themes.xml</b>
+</td></tr>
+
+<tr><td><tt>cacheDir</tt></td>
+<td>
+The location of the cache directory.  The cache contains previously generated UI pages served by the webapp so as to improve performance.
+</td></tr>
+</table>
+
+<h2>Creating a Programme Theme</h2>
+
+These should be avoided as they dilute the branding of the Observatory, however, since they are a legacy function of the old system, an easier-to-manage implementation has been made available.  If a blurb text is required for the programme specific theme, put it in the Minerva project's <tt>setup/blurbs</tt> directory.  You must make a version of this file for all 6 regions plus the generic/global version of the file.  The regional files must be named the same way as the global file with the addition of a regional prefix.  For example, the file gisah.html has regional versions named afro_gisah.html, emro_gisah.html etc.    The menu display is constrained simply by specifying the showonly parameter with the appropriate top level menu's node id.  For example, the GISAH Programme Theme would be http://..../data?showonly=292 for the generic/global version or http://..../data/?showonly=292&region=euro for the European region (292 is for example purposes the actual node can have a different name, or could even simply be called "gisah")
+
+
+<h2>Cleaning automatically generated links</h2>
+
+The initial Minerva menu is automatically generated from the existing GHOData 
+left navigation menu using the tool menu2gho_reloaded.js, found in the Minerva
+project under tools/migrateMenu.  The tool is close to 100% reliable when identifying
+what data needs to be displayed, however, it cannot easily determine the display
+structure of the data.  It defaults to using a pre-defined ordering of dimensions for
+both the side axis and the top axis, applied to all views.  For the most part this
+should generate views that reasonably match the current producion system,however, they 
+can differ in the following ways:
+
+<ol>
+<li><b>Blank dimension disaggregation codes</b><br />
+If the system contains data this is not uniformly disaggregated across a specific
+dimension, for example mortality data that is disaggregated by Gender (Both, Male, and
+Female) but also with facts that are NOT disaggregated by Gender, these may appear
+in the table with a blank entry for the Gender dimension.  You can remove these by
+explicitly specifying that the dimension in question MUST have a value in the 
+<tt>filter</tt> parameter of the URL.  In the case of the mortality example, you would
+add <tt>Gender:*</tt> to the filter.  The automated script cannot detect this because
+it works from the menu.js and mdx_template files and cannot know the <i>content</i> of
+the result set that will be returned from the database. 
+<br /><br /></li>
+
+<li><b>Missing dimension in the display table</b><br />
+The script uses a preset specification for the side and top axis dimension headers. 
+If a particular query returns data that is disaggregated by a dimension that is not
+in this specification, it will be ignored, thus not displayed.  Simply add the missing
+dimension to the desired axis in the order in which you would like it displayed.  The
+tool cannot automatically identify this because under the new infrastructure, you 
+specify to an arbitrary level of detail (through filters) what data you wish to
+retrieve.  The database will provide you with the disagreggation, so it is not 
+possible for the tool to know ahead of time what dimensions might be available.
+<br /><br /></li>
+
+<li><b>Dimensions in "incorrect" order</b><br />
+The tool has a preset structure for how to organize the dimensions across the
+top and side axis.  If this is not what you want, simply swap the dimension entry from
+the <tt>x-sideaxis</tt> to the <tt>x-topaxis</tt> URL parameter or vice versa
+<br /><br /></li>
+
+<li><b>Sparse dimension</b><br />
+In some cases you may see a dimension displayed that contains next to no
+data.  There may be more complete data displayed by another part of the disaggregation.
+In this case you can filter it out by specifying in the URL <tt>filter</tt> parameter
+that  you do not want this particular dimension returned (Do NOT simply remove it 
+from the side or top axes as this wont fix the actual problem).  To filter out a 
+dimension, use the token <tt>-</tt>, for example to filter out Gender disaggregation,
+use: <tt>...&amp;filter=Gender:-</tt>
+<br /><br /></li>
+
+<li><b>Incorrect view format</b><br />
+The tools assumes some basic content and structure based on its name in the original
+menu.  If the name is "WHO Region" or "WB Region" it is formated accordingly, otherwise
+it is formated as a country view.  Sometimes this ends up being incorrect and the 
+ tructure shows nothing, the axes must be redefined.
+<br /><br /></li>
+
+<li><b>Most recent data</b><br />
+This concept doesnt really make all that much sense in the context of the new database
+structure.  You can explicitly specify which years you would like to see, but the 
+concept of "most recent" is dependant on the time stamps of the dimension members and 
+observations, the value of the relevant time dimension, the as-of date of the query, and
+the dimensional structure of the observation.  If this is absolutely needed for a 
+specific view, then a specific transformation should be defined for it to display
+the data appropriately.
+<br /><br /></li>
+
+
+</ol>
+
+Note that this list is not exhaustive, if you find another way, document it here.
+
+</body>
+</html>
+
+
+
+
+
+

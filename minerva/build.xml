@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="iso-8859-1"?> 
+<project name="Athena" basedir="." default="all">
+
+  <property name="src.dir" 
+            value="src"/>
+
+  <property name="src.java.dir" 
+            value="${src.dir}/java"/>
+
+  <property name="setup.dir"
+            value="setup"/>
+
+  <property name="blurbs.dir"
+            value="${setup.dir}/blurbs"/>
+
+  <property name="build.dir"  
+            value="build"/>
+
+  <property name="tools.dir"
+            value="tools"/>
+
+  <property name="classes.dir" 
+            value="${build.dir}/classes"/>
+
+  <property name="lib.dir" 
+            value="lib"/> 
+
+  <property name="dist.dir" 
+            value="dist"/>
+
+  <property name="webapp.name" 
+            value="data"/>
+
+  <property name="webapp.dir" 
+            value="web"/>
+
+  <property file="build.properties"/>
+  
+  <path id="classpath">
+    <fileset dir="${lib.dir}" 
+             includes="**/*.jar"/>
+  </path>
+
+  <target name="clean" 
+          description="Deletes all compiled class files">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <!--
+    Delete all other generated files, with the exception of
+    build.properties so that the developer does not lose his or
+    her settings for the next build.
+  -->
+  <target name="distclean" 
+          description="Deletes generated files other than java classes">
+    <delete dir="${dist.dir}"/>
+    <delete includeemptydirs="true">
+      <fileset dir="${webapp.dir}/WEB-INF" includes="**/*"/>
+    </delete>
+  </target>
+
+  <!--
+    Compile the java source tree for the webapp
+  -->
+
+  <target name="compile"
+          description="Compiles all java classes">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.java.dir}"
+           destdir="${classes.dir}"
+           debug="true"
+           classpathref="classpath"/>
+  </target>
+
+  <target name="init"
+          description="Initialize the build environment">
+    <!-- Create the default build properties file -->
+    <copy file="${setup.dir}/build.properties.template"
+          tofile="build.properties"/>
+    <echo>
+------------------------------------------------------------
+Created new build.properties file.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <!--
+    Create the application's configuration files from templates and
+    local configuration values.  This will make a new version of the 
+    the files file in the directory web/WEB-INF 
+  -->
+
+  <target name="mk-config-files"
+          description="Create the application web.xml file from configuration parameters">
+    <copy file="${src.dir}/conf/web.xml.template" 
+          tofile="${webapp.dir}/WEB-INF/web.xml" />
+    <copy file="${src.dir}/conf/urlrewrite.xml.template" 
+          tofile="${webapp.dir}/WEB-INF/urlrewrite.xml" />
+    <copy file="${src.dir}/conf/log4j.properties.template" 
+          tofile="${webapp.dir}/WEB-INF/log4j.properties" />
+    <copy file="${src.dir}/conf/themes.xml.template" 
+          tofile="${webapp.dir}/WEB-INF/themes.xml" />
+    <echo>
+------------------------------------------------------------
+Created new WAR WEB-INF/web.xml file.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="compileMenu"
+          description="Process the menu XML files in the setup directory for use by Minerva">
+<!--
+    <echo>
+    Copying blurbs files
+    </echo>
+    <mkdir dir="${build.dir}/blurbs/blurbs"/>
+    <copy todir="${build.dir}/blurbs/blurbs">
+      <fileset dir="${blurbs.dir}"/>
+    </copy>
+-->
+    <echo>
+    Copying menu files
+    </echo>
+    <copy todir="${webapp.dir}/WEB-INF/menus">
+      <fileset dir="${setup.dir}" includes="*.xml"/>
+    </copy>
+    <echo>
+    Copying transform files for UI generation
+    </echo>
+    <copy todir="${webapp.dir}/WEB-INF/transforms">
+      <fileset dir="${setup.dir}" includes="*.xsl"/>
+    </copy>
+<!--
+    <echo>
+    Making regional versions of the main menu file
+    </echo>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkRegionalMenus.sh" />
+      <arg value="${setup.dir}" />
+      <arg value="menu" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+    </exec>
+    <echo>
+    Making indicator based navigation menu
+    </echo>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkIndicatorMenu.sh" />
+      <arg value="${setup.dir}" />
+      <arg value="menu.xml" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+    </exec>
+    <echo>
+    Making ghoclient version of the main menu
+    </echo>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkGhoClientMenu.sh" />
+      <arg value="${setup.dir}" />
+      <arg value="menu.xml" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+    </exec>
+    <echo>
+    Creating metadata menu from database contents 
+    </echo>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkMetadataMenu.sh" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+    </exec>
+    <echo>
+    Making CSV versions of selected menu files
+    </echo>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkMenuCsv.sh" />
+      <arg value="${setup.dir}" />
+      <arg value="menu.xml" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+      <arg value="menu.csv" />
+    </exec>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkMenuCsv.sh" />
+      <arg value="${setup.dir}" />
+      <arg value="wrapper.xml" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+      <arg value="wrapper.csv" />
+    </exec>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkMenuCsv.sh" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+      <arg value="metadata.xml" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+      <arg value="metadata.csv" />
+    </exec>
+    <exec executable="bash" failonerror="true">
+      <arg value="${tools.dir}/mkMenuCsv.sh" />
+      <arg value="${setup.dir}" />
+      <arg value="country.xml" />
+      <arg value="${webapp.dir}/WEB-INF/menus" />
+      <arg value="country.csv" />
+    </exec>
+-->
+  </target>
+
+  <target name="showNotes"
+          description="Provides some notes to the user about ssh keys required for certain tasks">
+    <echo>
+-----------------------------------------------------------------------------------
+IMPORTANT:  You must have a valid public/private keypair that allows you to access 
+ghouser@hqsudevlin.who.int via SSH.  If you do not, run the command:
+
+  ssh-keygen -t rsa -b 1024 -C "wims/YOUR_USER_NAME"
+
+and put the resulting id_rsa files in your ~/.ssh directory and append the contents 
+of id_rsa.pub to the ~ghouser/.ssh/authorized_keys file on hqsudevlin.who.int
+-----------------------------------------------------------------------------------
+    </echo>
+    <echo>
+-----------------------------------------------------------------------------------
+WARNING:  If your newly uploaded menus and transforms fail to work, CHECK THE TOMCAT 
+          LOG on HQSUDEVLIN!!!!
+-----------------------------------------------------------------------------------
+    </echo>
+  </target>
+
+<!--
+  <target name="testMenu"
+          depends="compileMenu,showNotes"
+          description="Quickly deploy menus to hqsudevlin.who.int:8086">
+    <echo>
+    Transfering menu files to hqsudevlin, WEB-INF/menus/menu*.xml
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/WEB-INF/menus/menu*.xml" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/menus"/>
+    </exec>
+    <echo>
+    Transfering EURO NCD menu file to hqsudevlin, WEB-INF/menus/alc.xml
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/WEB-INF/menus/alc.xml" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/menus"/>
+    </exec>
+    <echo>
+    Transfering metadata menu to hqsudevlin, WEB-INF/menus/metadata.xml
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/WEB-INF/menus/metadata.xml" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/menus"/>
+    </exec>
+    <echo>
+    Transfering CCO menu to hqsudevlin, WEB-INF/menus/cco.xml
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/WEB-INF/menus/cco.xml" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/menus"/>
+    </exec>
+    <echo>
+    Transfering visualization wrapper file to hqsudevlin, WEB-INF/menus/wrapper.xml
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/WEB-INF/menus/wrapper.xml" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/menus"/>
+    </exec>
+    <echo>
+    Transfering SDG file to hqsudevlin, WEB-INF/menus/sdg.xml
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/WEB-INF/menus/sdg.xml" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/menus"/>
+    </exec>
+    <echo>
+    Transfering blurbs to hqsudevlin
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="-r"/>
+      <arg value="${blurbs.dir}/*" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/blurbs"/>
+    </exec>
+    <echo>
+    Transfering top level HTML files (MOTDs and system messages like NotFound)
+    </echo>
+    <exec executable="scp" failonerror="true">
+      <arg value="${webapp.dir}/*.html" />
+      <arg value="ghouser@hqsudevlin.who.int:/services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data"/>
+    </exec>
+    <echo>
+    Restarting the webapp on hqsudevlin
+    </echo>
+    <exec executable="ssh" failonerror="true">
+      <arg value="ghouser@hqsudevlin.who.int"/>
+      <arg value="touch /services/who-shared-hosting/sites/gho/htdocs/jakarta-tomcat/webapps/data/WEB-INF/web.xml" />
+    </exec>
+  </target>
+-->
+
+<!--
+  <target name="getWhoStyle"
+          description="Retrieve Javascript, CSS, and image files from WHO corporate website">
+    <mkdir dir="${build.dir}/style"/>
+    <exec executable="bash">
+      <arg value="${tools.dir}/getWhoCss.sh" />
+      <arg value="load" />
+      <arg value="${build.dir}/style" />
+    </exec>
+  </target>
+
+  <target name="removeWhoStyle"
+          description="remove Javascript, CSS, and image files from WHO corporate website">
+    <exec executable="bash">
+      <arg value="${tools.dir}/getWhoCss.sh" />
+      <arg value="clean" />
+      <arg value="${build.dir}/style" />
+    </exec>
+  </target>
+-->
+  <!-- 
+    Build the war file for Athena and put it in the project's 
+    dist directory 
+  --> 
+  <target name="dist" 
+          depends="compile,mk-config-files,compileMenu"
+          description="Create the application war file">
+    <delete dir="${dist.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <jar destfile="${dist.dir}/${webapp.name}.jar" basedir="${classes.dir}"/>
+    <war destfile="${dist.dir}/${webapp.name}.war" 
+         webxml="${webapp.dir}/WEB-INF/web.xml">
+      <fileset dir="${webapp.dir}"/>
+<!--
+      <fileset dir="${build.dir}/style"/>
+      <fileset dir="${build.dir}/blurbs"/>
+-->
+      <!--
+         This is a very special case.  The example.xml file is intended as a sample
+         guide for creating menu files, so we copy it to the application's root so 
+         that it can be downloaded by Internet users.
+      -->
+      <fileset file="${setup.dir}/example.xml"/>
+      <lib dir="${lib.dir}"/>
+      <lib file="${dist.dir}/${webapp.name}.jar"/>
+    </war>
+    <echo>
+------------------------------------------------------------
+The WAR file ${dist.dir}/${webapp.name}.war is ready.
+------------------------------------------------------------
+    </echo>
+  </target>
+
+  <target name="all" 
+          depends="clean,distclean,init,compile,dist"
+          description="Build the application"/>
+
+</project>
+

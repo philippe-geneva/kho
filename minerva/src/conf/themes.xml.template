@@ -1,0 +1,14 @@
+<themes>
+
+  <theme name="kenya-nho"
+         transform="WEB-INF/transforms/embed.xsl"
+         motd=""
+         file="WEB-INF/menus/kenya-nho.xml">
+     <Display lang="en">Kenya national health observatory</Display>
+  </theme>
+
+
+</themes>
+
+
+
