@@ -37,8 +37,8 @@
 </script>
 <link rel="shortcut icon" href="<%=http_base%>/sysmedia/media/resources/favicon.ico" />
 <link rel="apple-touch-icon" href="<%=http_base%>/sysmedia/media/resources/apple-touch-icon.png"/>		
-<script type="text/javascript" src="<%=http_base%>/sysmedia/media/js/lib/jquery.js"></script>
-<script type="text/javascript" src="<%=http_base%>/sysmedia/media/js/lib/jquery.plugins_r.js"></script>
+<script type="text/javascript" src="js/lib/jquery.js"></script>
+<script type="text/javascript" src="js/lib/jquery.plugins_r.js"></script>
 
 <!--[if gte IE 9]>
 <script type="text/javascript" src="<%=http_base%>/sysmedia/media/js/lib/matchMedia.js"></script>
@@ -60,7 +60,10 @@
 
 
 
+<!--
 <link href="<%=http_base%>/sysmedia/media/style/who_responsive.css" rel="stylesheet" type="text/css"/>
+-->
+<link href="css/who_responsive.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="<%=http_base%>/sysmedia/media/js/captify.js"></script>
 <!--[if IE]><link href="<%=http_base%>/sysmedia/media/style/css/patches/patch_ie_r.css" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if IE 7]><link href="<%=http_base%>/sysmedia/media/style/css/patches/patch_ie_7_r.css" rel="stylesheet" type="text/css" /><![endif]-->

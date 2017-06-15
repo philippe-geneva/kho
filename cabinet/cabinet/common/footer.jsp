@@ -36,8 +36,8 @@
             </li>
             <li>
 		    <a href="<%=http_base%>/about/en/index.html">About 
-          <acronym title="World Health Organization">
-          WHO</acronym></a>
+          <acronym title="Kenya Health Observatory">
+          KHO</acronym></a>
             </li>
         </ul>
     </div>
@@ -102,14 +102,6 @@
         <div class="footer-social-links">
             <div class="addthis_inline_follow_toolbox"></div>
         </div>
-        <div class="footer-social-links store-buttons">
-            <a href="https://play.google.com/store/apps/details?id=uk.co.adappt.whoapp" target="_new">
-		    <img class="play-store" src="<%=http_base%>sysmedia/media/style/img/google-play-badge_en_.png"/>
-            </a>
-            <a href="https://itunes.apple.com/gb/app/who-info/id895463794?mt=8" target="_new">
-		    <img class="apple-store" src="<%=http_base%>/sysmedia/media/style/img/apple_store_en_.svg"/>
-            </a>
-        </div>
     </div>
     <div class="clear">
         <!-- all clear -->
@@ -118,8 +110,8 @@
 <!-- end: doormat -->
 <!-- begin: foot -->
 <div id="foot">
-	<p><a href="<%=http_base%>/about/copyright/en/">&#169; <acronym title="World Health Organization">
-        WHO</acronym> 2016</a></p>
+	<p><a href="<%=http_base%>/about/copyright/en/">&#169; <acronym title="Kenya Health Observatory">
+        KHO</acronym> 2016</a></p>
 </div>
 <!-- end: foot -->
 
