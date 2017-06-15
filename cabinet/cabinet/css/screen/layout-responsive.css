@@ -1,0 +1,321 @@
+/* --- World Health Organization ----------------------------------------------------- */
+/* --- CSS Framework: Layout definitions --------------------------------------------- */
+/* --- Versions 
+
+Version 1.5.2
+- update to #page #title
+
+======================================================================================*/
+
+/*<![CDATA[*/
+@media all {
+
+/* -------------------------------------------------------------------------------------
+ AREAS
+======================================================================================*/
+
+/* body */
+body {
+	background-color:#F5F5F5;
+	padding:0 0 30px 0;
+	margin:0;
+}
+
+/* page */
+#page {
+	max-width:1024px;
+	min-width: 320px;
+	padding:0 0 10px 0;
+	margin:0 auto;
+	background-color:#F5F5F5;
+}
+#wrapper {
+	padding:0;
+	background-color:#F5F5F5;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow:    0px 0px 3px 0px rgba(0,0,0,0.1);
+	box-shadow:         0px 0px 3px 0px rgba(0,0,0,0.1);
+}
+
+/* header */
+#header {
+	position:relative;
+	padding:21px 0 0 0;
+	background-color:#FFFFFF;
+}
+
+/* ticker */
+#ticker {
+	position:relative;
+	padding:0 15px;
+	background-color:#FFFFCC;
+	border-top:1px solid #CCCCCC;
+	border-bottom:1px solid #CCCCCC;
+	zoom:1;
+}
+
+/* main */
+#main {
+	clear:both;
+	background-color: #FFFFFF;
+	position: relative;
+}
+
+/* breadcrumb */
+#breadcrumb {
+	background-color:#DBEEF9;
+	padding: 15px 20px;
+}
+
+/* footer */
+#footer {
+	position:relative;
+  padding: 20px;
+	background-color:#0081b8;
+	background-image:url('../../img/footer_emblem.gif');
+	background-position:20px 15px;
+	background-repeat:no-repeat;
+	zoom:1;
+	overflow: hidden;
+	min-height: 30px;
+	/* width: 100%;  */
+}
+
+
+/* -------------------------------------------------------------------------------------
+ HEADER
+======================================================================================*/
+
+
+/* branding */
+#branding {
+	height:80px;
+}
+
+/* access */
+#access {
+	position:absolute;
+	left:-10000px;
+	top:-10000px;
+	visibility:hidden;
+	width:0;
+	height:0;
+	line-height:0;
+}
+
+/* language */
+#language {
+	position: absolute;
+	right: 14px;
+	top: 0px;
+	height: 26px;
+	padding: 0 0 0 15px;
+	z-index: 10;
+}
+
+/* navigation */
+#navigation {
+	height:43px;
+	padding:0;
+	background-color:#008dc9;
+	float: left;
+	/* width: 66.7%; */ width: 72%;
+	position: relative;
+	z-index: 1;
+}
+
+/* search */
+#search {
+	background-color:#008dc9;
+	/* width: 33.3%; */ width: 28%;
+	height: 43px;
+	float: right;
+	position: relative;
+	z-index: 1;
+}
+/*fixing 1px margin between nav and search on safari (width rendering issue) */
+.main-site #search:before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: -2px;
+  width: 5px;
+  height: 43px;
+  background-color: 
+  #008dc9;
+  z-index: -1;
+}
+#search #search_advanced {
+  display: none;
+}
+
+/* Advanced search styles */
+.advanced-search-conditional-filter,
+.advanced-search-language-filter,
+.advanced-search-format-filter,
+.advanced-search-occurance-filter,
+.advanced-search-domain-filter {
+padding: 10px 10px 20px 10px;
+margin-bottom: 10px;
+background: #f5f5f5;
+}
+.advanced-search-form-wrapper .example {
+font-size: 10px;
+color: #999;
+}
+.advanced-search-form-wrapper p {
+margin: 0 0 5px 0;
+}
+
+.advanced-search-conditional-filter label {
+display: inline-block;
+zoom: 1;
+*display: inline;
+width: 200px;
+}
+.advanced-search-form-wrapper input[type="submit"] {
+float: right;
+background: #D86422;
+border: 0px;
+color: #fff;
+padding: 7px 15px;
+font-size: 14px;
+font-family: arial, sans-serif;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+.advanced-search-sort-filter {
+margin-bottom: 20px;
+}
+
+
+
+
+/* -------------------------------------------------------------------------------------
+ MAIN
+======================================================================================*/
+
+/* title */
+#page #title {
+	padding:10px 15px 9px;
+	background-color:#F5F5F5;
+	border-bottom: 1px solid #dfdfdf;
+	zoom:1;
+	display:block;
+}
+
+#page.template_sidebar #title, #page.template_sidebar-marginal #title, #page.template_sidebar-special #title   {
+	padding:15px 20px 15px 25%;
+}
+
+/* content */
+#content {
+	padding:20px;
+}
+.template_sidebar #content, .template_sidebar-special #content {
+	float:left;
+	width: 75%;
+	padding: 20px 0;
+}
+.template_sidebar-marginal #content {
+	float:left;
+	width:75%;
+	padding:0;
+	margin-top: 20px;
+}
+
+.template_sidebar-marginal .search #content {
+	margin-bottom: 20px;
+}
+
+.template_sidebar-marginal #content #primary, #content #primary {
+  width: 66.66666%;
+}
+
+/* sidebar */	
+#sidebar {
+	float:left;
+	width:25%;
+	padding:0;
+	display:none;
+}
+.template_sidebar #sidebar,
+.template_sidebar-marginal #sidebar, .template_sidebar-special #sidebar{
+	display:block;
+}
+
+/* primary */
+#primary {
+	float:left;
+}
+
+
+/* marginal */
+#marginal {
+	float:right;
+	width: 33.33333%;
+	padding:0;
+	background-color:#fff;
+}
+.template_sidebar-special #marginal {
+	width:140px;
+	padding:30px 0 0;
+
+}
+#marginal .teaser {
+	overflow:hidden;
+}
+
+/* special column width */
+.template_sidebar-special #content p, .template_sidebar-special #content h1.headline, .template_sidebar-special #content h2, .template_sidebar-special #content hr, .template_sidebar-special #content .section_head1, .template_sidebar-special #content .section_head2, .template_sidebar-special #content .section_head3, .template_sidebar-special #content ul {
+	width: 70%;
+}
+.template_sidebar-special #content hr {
+	float: left;
+}
+
+/*** Templates with sidebars ***/
+.template_sidebar .col_1-2_1 img {
+  /* width: 100%; */ 
+  width: 95%;
+  height: auto;
+}
+/* .template_sidebar .col_1-2_1 .link_image, */
+.template_sidebar .col_1-2_1 .image_credit,
+.template_sidebar {
+  margin-right: 20px;
+}
+.template_sidebar #billboard {
+  margin-right: 20px;
+}
+.template_sidebar .columns {
+  margin-right: 20px;
+}
+.template_sidebar .columns .col_2-1_2 .box {
+  margin-right: 0;
+}
+
+
+
+/* -------------------------------------------------------------------------------------
+ FOOTER
+======================================================================================*/
+
+/* doormat */
+#doormat {
+	padding:0 0 0 320px;
+}
+
+/* foot */
+#foot {
+	position:absolute;
+	left:20px;
+	bottom:20px;
+	width:300px;
+}
+
+
+
+}
+/*]]>*/
+
