@@ -63,4 +63,7 @@ the specific component with the ant command and copy the war file to you
 tomcat/webapps directory
 
 
+Assuming the whole system is running on a single desktop, the application 
+link becomes http://localhost:8080/cabinet/kenya.jsp
+
 
